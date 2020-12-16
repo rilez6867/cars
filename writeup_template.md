@@ -23,16 +23,24 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of several steps. First, the image was converted to grayscale. Second, the image was run through the blur function to reduce image noise and reduce detail so that we can get an almost naked picture of the parts we need to see or in this case the lines and edges in the picture which also utilized the canny function. The canny in this case was used to find the edges and bring them out into the open which included masking certain areas of the image to find the edges and lastly, I used the hough transform method to connect the lines to their mates, this method simply helped me connect the lines in the image that weren't connected.
+1.I applied grayscale to the input image which is needed to get  canny edge detection.
+
+2. I then applied the canny image detector to show me the images edges. Canny edge detection  uses the horizontal and vertical gradients of the pixel values of an image to detect edges within the image.
+
+3. I then masked out everything in the image to only show us the road lines that I care about. I did this by making a region of interest and removing all other pixels that are not in the region I care about.
+
+4. I then used the hough transformation method to identify lines which indicate lane lines in the image  and by using this method, I can find lines from the pixel outputs of the canny edge detection output to connect all the lines in the picture.
+
+5. The hough transform shows me small lines based on the intersections in hough . Now, with this information I can connect both the right line and the left line lane to form a full lane line without any gaps in between
+
+I did this by separating the  lines into two groups, one with a positive gradient and the other with a negative gradient. 
+
+I then took the average gradient and intercept values for each group and made our whole lane lines from there. The lane lines are then extrapolated to the edge detected pixel with the minimum y-axis coordinate and the pixel with the maximum y-axis coordinate.
+
+6. Lastly I  overlaped the extrapolated lines to the input image. I did this by adding a weight value to the original image based on the detected lane line position.
 
 
-I made a nested for loop to loop over the lines and get their coordinates. Then I added up the slope using the coordinates and filtered the lines into "left" and "right" sides based on their slopes. I also started grabbing their x and y values to be turned into a mean number later on. Then the slopes and coordinates of each of the sides were averaged to find the mean and the endpoints of the  lines were extrapolated using the mean coordinates and the slope for each.  When the function gets done running it should have added thick lines to the images of the roadway lines.
 
-
-
-
-
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
 
 ![alt text][image1]
 
