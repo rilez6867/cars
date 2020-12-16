@@ -92,10 +92,7 @@ plt.imshow(image)  # if you wanted to show a single color channel image called '
 import math
 
 def grayscale(img):
-    """Applies the Grayscale transform
-    This will return an image with only one color channel
-    but NOTE: to see the returned image as grayscale
-    you should call plt.imshow(gray, cmap='gray')"""
+    
     return cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 image = mpimg.imread('test_images/solidYellowCurve2.jpg')
@@ -138,7 +135,7 @@ def region_of_interest(img, vertices):
     else:
         ignore_mask_color = 255
         
-    #filling pixels inside the polygon defined by "vertices" with the fill color    
+    #filling pixels inside the image defined by "vertices" with the fill color    
     cv2.fillPoly(mask, vertices, ignore_mask_color)
     
     #returning the image only where mask pixels are nonzero
